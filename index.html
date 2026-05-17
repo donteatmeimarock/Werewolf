@@ -6,6 +6,8 @@
     <title>Pixel Werewolf</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- PeerJS for Serverless Multiplayer -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 </head>
 <body>
     <div id="game-container">
@@ -15,14 +17,19 @@
 
         <!-- Lobby Screen -->
         <section id="lobby-screen" class="screen active">
-            <div class="panel">
-                <h2>Join a Village</h2>
+            <div class="panel" id="lobby-menu">
+                <h2>Enter the Village</h2>
                 <input type="text" id="player-name" placeholder="YOUR NAME" maxlength="10">
-                <input type="text" id="room-code" placeholder="ROOM CODE" maxlength="6">
+                <br><br>
+                <button id="host-btn" class="btn danger">HOST NEW GAME</button>
+                <div style="text-align: center; margin: 15px 0;">- OR -</div>
+                <input type="text" id="room-code" placeholder="ROOM CODE" maxlength="6" style="text-transform: uppercase;">
                 <button id="join-btn" class="btn primary">JOIN GAME</button>
             </div>
+            
             <div id="lobby-players" class="panel hidden">
-                <h3>Villagers Gathered</h3>
+                <h3 id="room-display">Room: ----</h3>
+                <p style="text-align: center; color: var(--accent); margin-bottom: 10px;">Share this code with friends!</p>
                 <ul id="player-list"></ul>
                 <p id="player-count">0/10</p>
                 <button id="start-btn" class="btn danger hidden">START GAME</button>
@@ -51,7 +58,6 @@
             <div id="action-panel" class="action-panel hidden">
                 <h3 id="action-title">Select Target</h3>
                 <p id="action-desc">Choose wisely.</p>
-                <!-- Action target buttons will be generated here -->
                 <div id="target-buttons" class="target-grid"></div>
             </div>
             
@@ -63,7 +69,6 @@
         </section>
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
