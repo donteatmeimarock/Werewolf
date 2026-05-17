@@ -188,12 +188,12 @@ function handleServerMessage(data) {
             showError(data.message);
             break;
         case 'room_update':
-            players = data.players;
+            if (!isHost) players = data.players;
             updateLobbyUI();
             break;
         case 'game_start':
             myRole = data.role;
-            players = data.players;
+            if (!isHost) players = data.players;
             myId = data.myId;
             isAlive = true;
             
@@ -240,7 +240,7 @@ function handleServerMessage(data) {
         case 'game_over':
             actionPanel.classList.add('hidden');
             gameOverScreen.classList.remove('hidden');
-            players = data.players;
+            if (!isHost) players = data.players;
             renderPlayers(true); // render with roles visible
             
             if (data.winner === 'werewolf') {
